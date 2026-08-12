@@ -17,6 +17,8 @@ extension ContentView {
         var selectedPlace: Location?
         let savePath = URL.documentsDirectory.appending(path: "SavedPlaces")
         var isUnlocked = false
+        var authenticationError = ""
+        var showingAuthenticationError = false
         
         func addLocation(at point: CLLocationCoordinate2D) {
             let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: point.latitude, longitude: point.longitude)
@@ -64,11 +66,13 @@ extension ContentView {
                     if success {
                         self.isUnlocked = true
                     } else {
-                        // error
+                        self.authenticationError = authenticationError?.localizedDescription ?? "Unknown error"
+                        self.showingAuthenticationError = true
                     }
                 }
             } else {
-                // no biometrick
+                self.authenticationError = error?.localizedDescription ?? "Biometrics not available"
+                self.showingAuthenticationError = true
             }
         }
     }
