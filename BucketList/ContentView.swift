@@ -17,7 +17,7 @@ struct ContentView: View {
     )
     
     @State private var viewModel = ViewModel()
-    @State private var typeMap = false
+    @State private var isHybridMapStyle = false
     @State private var showingAlert = false
     
     var body: some View {
@@ -37,7 +37,7 @@ struct ContentView: View {
                             .tag(location)
                         }
                     }
-                    .mapStyle(typeMap ? .hybrid : .standard)
+                    .mapStyle(isHybridMapStyle ? .hybrid : .standard)
                     .onTapGesture { position in
                         if let coordinate = proxy.convert(position, from: .local) {
                             viewModel.addLocation(at: coordinate)
@@ -52,7 +52,7 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            typeMap.toggle()
+                            isHybridMapStyle.toggle()
                         } label: {
                             Image(systemName: "map")
                         }

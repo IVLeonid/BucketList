@@ -35,7 +35,6 @@ extension ContentView {
             save()
         }
         
-        //downloading data with init()
         init() {
             do {
                 let data = try Data(contentsOf: savePath)
